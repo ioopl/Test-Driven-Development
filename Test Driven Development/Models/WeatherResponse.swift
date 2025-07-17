@@ -1,8 +1,6 @@
 // Main Weather data response - see mock response file currentConditions.json
 struct WeatherResponse: Decodable {
-    //let coord: Coordinates
-    let lon: Double
-    let lat: Double
+    let coord: Coordinates
     let weather: [Weather]
     let base: String
     let main: Main

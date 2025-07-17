@@ -5,7 +5,7 @@ import CoreLocation
 enum WeatherRequester {
   private static let romeLatitude = 41.893333
   private static let romeLongitude = 12.482778
-    static let urlString = "https://api.openweathermap.org/data/3.0/onecall?lat=\(romeLatitude)&lon=\(romeLongitude)&appid=\(Config.openWeatherKey)"
+    static let urlString = "https://api.openweathermap.org/data/2.5/weather?lat=\(romeLatitude)&lon=\(romeLongitude)&appid=\(Config.openWeatherKey)"
 
     static func getCurrentConditionsInRome() async -> String? {
       let conditionsLabelText = "Currently in Rome: "
