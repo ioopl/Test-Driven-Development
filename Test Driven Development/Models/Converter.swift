@@ -114,9 +114,13 @@ struct Converter {
   }
 
   func convertFromRomanToDecimal(_ romanString: String) -> String? {
+      //romanLetterValues: A dictionary mapping Roman numeral characters (as strings) to their respective integer values.
+      // validRomanLetters: A set containing the keys of romanLetterValues to quickly check if a character in the input string is a valid Roman numeral.
+
     let romanLetterValues: [String: Int] = ["M": 1000, "D": 500, "C": 100, "L": 50, "X": 10, "V": 5, "I": 1]
     let validRomanLetters = Set(romanLetterValues.keys)
 
+      // romanArray: An array that stores each valid character from the input string.
     var romanArray: [String] = []
     for letter in romanString {
       if !validRomanLetters.contains(String(letter)) {
@@ -129,21 +133,28 @@ struct Converter {
 
     let romanCount = romanArray.count
     var total = 0
+      // The function then iterates through romanArray to calculate the total value. This involves looking at each character and the one following it (if any):
+
     for i in 0 ..< romanCount {
       let letterValue = romanLetterValues[romanArray[i]]!
       if i + 1 < romanCount {
         let letterValueToRight = romanLetterValues[romanArray[i + 1]]!
+          
+          //If the current character's value is greater than or equal to the next character's value, the value is added to the total.
         if letterValue >= letterValueToRight {
           total += letterValue
         } else {
+            // If the current character's value is less than the next character's value, it indicates that the current value should be subtracted (as per Roman numeral rules), hence it is subtracted from the total.
           total -= letterValue
         }
       } else {
+          // If there's no next character (i.e., the last character in the string), its value is simply added to the total.
         total += letterValue
       }
     }
 
     let totalString = String(total)
+      // After computing the decimal value, the function converts this total back to a Roman numeral string (using another function convertFromDecimalToRoman) and checks if it matches the original input. This step ensures the input was a valid Roman numeral and correctly formatted.
     // IIII is invalid.
     guard convertFromDecimalToRoman(totalString, shouldSendAnalyticsEvent: false) == romanString else {
       Current.analyticsService.sendAnalyticsEvent(.conversionFailed)

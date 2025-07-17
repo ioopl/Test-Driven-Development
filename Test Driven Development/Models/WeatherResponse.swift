@@ -1,6 +1,8 @@
 // Main Weather data response - see mock response file currentConditions.json
 struct WeatherResponse: Decodable {
-    let coord: Coordinates
+    //let coord: Coordinates
+    let lon: Double
+    let lat: Double
     let weather: [Weather]
     let base: String
     let main: Main
@@ -16,15 +18,17 @@ struct WeatherResponse: Decodable {
 
 // Coordinate data
 struct Coordinates: Decodable {
-    let lon, lat: Double
 }
 
 // Main weather metrics
 struct Main: Decodable {
-    let temp, feelsLike: Double
-    let tempMin, tempMax: Double
-    let pressure, humidity: Int
-
+    let temp: Double
+    let feelsLike: Double
+    let tempMin: Double
+    let tempMax: Double
+    let pressure: Int
+    let humidity: Int
+    
     enum CodingKeys: String, CodingKey {
         case temp
         case feelsLike = "feels_like"

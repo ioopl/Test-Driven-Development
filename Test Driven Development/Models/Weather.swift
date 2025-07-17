@@ -1,5 +1,7 @@
 // Weather condition details
 struct Weather: Decodable {
     let id: Int
-    let main, description, icon: String
+    let main: String
+    let description: String
+    let icon: String
 }
